@@ -6,27 +6,27 @@ topics: ["html", "css"]
 published: false
 ---
 
-# TL;DR
+## TL;DR
 
-- `<textarea>`や`<input>`は仕様的に擬似要素` ::after`、`::before `を付与されてもスタイリングして表示することができません。
+- `<textarea>`や`<input>`は仕様的に擬似要素`::after`、`::before`を付与されてもスタイリングして表示することができません。
 - 方法 1: 擬似要素を諦めて、container で囲って`span`で装飾しましょう。
 - 方法 2: `<textarea>`を諦めて、`<div contenteditable="true">`を使いましょう。
 - 方法 3: Custom Elements の利用を検討しましょう。
 
-# この記事でざっくり学べること
+## この記事でざっくり学べること
 
 - CSS transition の仕様
 - flow content や frasing content の仕様
 - 擬似要素の仕様
 - YouTube のコメント欄みたいな装飾を HTML と CSS で実現する方法
 
-# やりたいこと
+## やりたいこと
 
 ![YouTubeのコメント欄のフォーカス挙動](https://storage.googleapis.com/zenn-user-upload/g1w2w6j3gnk94y4ej061bhkxrxps)
 
 gif のフレーム数が少なくて伝わりづらいですが、フォーカスと同時に、下の線が中央から左右へと向けて黒く変化するアニメーションが付与されています。
 
-# 検討 1: `border-bottom`プロパティによるアニメーション
+## 検討 1: `border-bottom`プロパティによるアニメーション
 
 「下線が表示される」というアニメーションを実装するにあたって、まず考えることは`border-bottom`プロパティの利用です。
 実際に試してみましょう。
@@ -49,7 +49,7 @@ gif のフレーム数が少なくて伝わりづらいですが、フォーカ�
 
 ちなみに、`border-bottom-style`はそもそも`transitionable`（トランジション可能）な値ではありません。`transitionable`の定義は以下の通りです。
 
-> ...the property values are transitionable if they have an animation type that is neither not animatable nor discrete. https://www.w3.org/TR/2018/WD-css-transitions-1-20181011/#transitionable
+> ...the property values are transitionable if they have an animation type that is neither not animatable nor discrete. <https://www.w3.org/TR/2018/WD-css-transitions-1-20181011/#transitionable>
 >
 > 筆者訳：所与のプロパティの値が`transitionable`であると言われるのは、そのプロパティの`animation type`が`not animatable`でも`discrete`でもない場合です。
 
@@ -57,7 +57,7 @@ gif のフレーム数が少なくて伝わりづらいですが、フォーカ�
 
 :::
 
-# 検討 2: ` ::before``::after `擬似要素によるアニメーション
+## 検討 2: ` ::before``::after `擬似要素によるアニメーション
 
 直接スタイルをアニメーションさせることができないとなると、第二候補は`::before`や`::after`といった擬似要素の利用になります。これも実際に試してみましょう。まずは`::before`で擬似要素として下線を足してみます。
 
@@ -72,7 +72,7 @@ gif のフレーム数が少なくて伝わりづらいですが、フォーカ�
 > Represents a styleable child pseudo-element immediately before the originating element’s actual content.
 >
 > 筆者訳：スタイリング可能な子擬似要素を元の要素の実際のコンテンツの直前に表示します。
-> (https://www.w3.org/TR/2020/WD-css-pseudo-4-20201231/#selectordef-before)
+> (<https://www.w3.org/TR/2020/WD-css-pseudo-4-20201231/#selectordef-before>)
 
 ここで重要なのは、"actual content"です。要は、擬似要素が表示されるのは、指定された要素の内容の中でいちばん最初の部分になる……ということです。（`::before`を使っている人には当たり前の常識でしょうが、実際には「コンテンツの直前」に入るのだという定義がされていることを確認しておきたかったまで）
 
