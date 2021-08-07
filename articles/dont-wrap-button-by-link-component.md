@@ -1,10 +1,36 @@
 ---
-title: "注意して。<Link>コンポーネントで<button>をラップしてはいけない"
+title: "注意して。<a>で<button>をラップしてはいけない"
 emoji: "⛔️"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: [react,nextjs,html5]
 published: true
 ---
+
+
+## 2021.08追記
+
+もともとこの記事のタイトルは「注意して。`<Link>`コンポーネントで`<button>`をラップしてはいけない」でした。
+しかし、厳密には各ライブラリによって`<Link>`コンポーネントのAPIが異なる点に対して、把握しきれていない部分もあるなと思い直しましたので（ライブラリ独自の対処法とかいろいろありそう＆今後出てきてもおかしくない）、タイトルを変更しました。
+
+他の記事や公式ドキュメントもご参照いただけますと、バランスの取れた現実的な対処が可能になる気がします。
+（関連記事や修正の私的があればコメント・PRください！）
+
+- 関連
+
+https://nextjs.org/docs/api-reference/next/link#if-the-child-is-a-custom-component-that-wraps-an-a-tag
+
+https://ja.nuxtjs.org/docs/2.x/features/nuxt-components#the-nuxtlink-component
+
+https://reactrouter.com/web/api/Link
+
+https://router.vuejs.org/ja/api/#router-link
+
+また、こちらの記事で、Material UIのButtonとNext.jsのLinkを組み合わた際の問題と対処法が記載されていたので、シェアします。
+
+https://qiita.com/ainehanta/items/44fe664b4b2b0adf213b
+
+
+--- 
 
 ## motivation
 
@@ -14,6 +40,7 @@ published: true
 
 - a要素はbutton要素などのインタラクティブコンテンツを子要素にとることができない
 - 今のところ多くのルーティングライブラリで`<Link>`は`<a>`をレンダリングする
+ - レンダリングするコンポーネントをちゃんと指定する場合は、その限りではないです
 - 画面遷移で`<Link><button></button></Link>`を使うのはやめましょう
 
 ## 確かに画面遷移はできるけど
